@@ -7,6 +7,24 @@
 
 import SwiftUI
 
+extension DateFormatter {
+    fileprivate static var hoursAndMinutes: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        formatter.amSymbol = ""
+        formatter.pmSymbol = ""
+        return formatter
+    }()
+}
+
+extension Date {
+    fileprivate var hoursAndMinutesString: String {
+        DateFormatter.hoursAndMinutes.string(from: self)
+            .trimmingCharacters(in: .whitespaces)
+    }
+}
+
 struct LockScreenButton: View {
     @State private var pressed = false
 
@@ -35,16 +53,9 @@ struct LockScreenButton: View {
 
 struct ContentView: View{
 
-    var timeFormatter: DateFormatter {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .none
-        formatter.timeStyle = .short
-        formatter.amSymbol = ""
-        formatter.pmSymbol = ""
-        return formatter
-    }
-
+    // DateComponents(calendar: .current, year: 2021, month: 12, day: 2, hour:9, minute: 41).date!
     @State private var currentDate = Date()
+
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var flashlightActive = false
 
@@ -63,7 +74,7 @@ struct ContentView: View{
                         .font(.largeTitle)
                         .padding(.top, 60)
 
-                    Text(currentDate, formatter: timeFormatter)
+                    Text(currentDate.hoursAndMinutesString)
                         .font(.system(size: 82, weight: .thin))
 
                     Text(currentDate, style: .date)
