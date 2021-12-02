@@ -44,6 +44,8 @@ struct ContentView: View{
         return formatter
     }
 
+    @State private var currentDate = Date()
+    let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State private var flashlightActive = false
 
     var body: some View {
@@ -61,10 +63,10 @@ struct ContentView: View{
                         .font(.largeTitle)
                         .padding(.top, 60)
 
-                    Text(Date(), formatter: timeFormatter)
+                    Text(currentDate, formatter: timeFormatter)
                         .font(.system(size: 82, weight: .thin))
 
-                    Text(Date(), style: .date)
+                    Text(currentDate, style: .date)
                         .font(.title2)
                         .offset(y: -10)
 
@@ -88,6 +90,9 @@ struct ContentView: View{
                 }
                 .padding([.leading, .trailing])
                 .foregroundColor(.white)
+                .onReceive(timer) { input in
+                    currentDate = input
+                }
             }
         }.ignoresSafeArea()
     }
