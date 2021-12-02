@@ -37,6 +37,15 @@ struct LockScreenButton: View {
 
 struct ContentView: View{
 
+    var timeFormatter: DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        formatter.amSymbol = ""
+        formatter.pmSymbol = ""
+        return formatter
+    }
+
     var body: some View {
         ZStack {
             GeometryReader { geo in
@@ -52,7 +61,7 @@ struct ContentView: View{
                         .font(.largeTitle)
                         .padding(.top, 60)
 
-                    Text(Date(), style: .time)
+                    Text(Date(), formatter: timeFormatter)
                         .font(.system(size: 82, weight: .thin))
 
                     Text(Date(), style: .date)
