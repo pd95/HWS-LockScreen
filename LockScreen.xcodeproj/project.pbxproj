@@ -19,6 +19,7 @@
 		173BA150275954F6000B4B15 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		173BA152275954F6000B4B15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		173BA155275954F6000B4B15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		173BA15C275964C0000B4B15 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +36,7 @@
 		173BA142275954F6000B4B15 = {
 			isa = PBXGroup;
 			children = (
+				173BA15C275964C0000B4B15 /* README.md */,
 				173BA14D275954F6000B4B15 /* LockScreen */,
 				173BA14C275954F6000B4B15 /* Products */,
 			);
