@@ -9,28 +9,26 @@ import SwiftUI
 
 struct LockScreenButton: View {
     @State private var pressed = false
-    @State private var activated = false
 
     let image: String
+    var active: Bool = false
+    var action: (() -> Void)? = nil
 
     var body: some View {
         Image(systemName: image)
             .font(.title3)
             .frame(width: 50, height: 50)
-            .background(activated ? Color.white :
+            .background(active ? Color.white :
                             Color.black.opacity(pressed ? 0.8 : 0.4))
-            .foregroundColor(activated ? .black : .white)
+            .foregroundColor(active ? .black : .white)
             .clipShape(Circle())
             .scaleEffect(pressed ? 1.5 : 1)
             .animation(.spring(response: 0.5, dampingFraction: 0.7), value: pressed)
             .onLongPressGesture(minimumDuration: 0.4) { bool in
                 pressed = bool
             } perform: {
-                activated.toggle()
+                action?()
                 pressed = false
-
-                let generator = UIImpactFeedbackGenerator()
-                generator.impactOccurred()
             }
     }
 }
@@ -45,6 +43,8 @@ struct ContentView: View{
         formatter.pmSymbol = ""
         return formatter
     }
+
+    @State private var flashlightActive = false
 
     var body: some View {
         ZStack {
@@ -71,7 +71,11 @@ struct ContentView: View{
                     Spacer()
 
                     HStack {
-                        LockScreenButton(image: "flashlight.off.fill")
+                        LockScreenButton(
+                            image: "flashlight.off.fill",
+                            active: flashlightActive,
+                            action: toggleFlashlight
+                        )
                         Spacer()
                         LockScreenButton(image: "camera.fill")
                     }
@@ -86,6 +90,12 @@ struct ContentView: View{
                 .foregroundColor(.white)
             }
         }.ignoresSafeArea()
+    }
+
+    private func toggleFlashlight() {
+        let generator = UIImpactFeedbackGenerator()
+        generator.impactOccurred()
+        flashlightActive.toggle()
     }
 }
 
