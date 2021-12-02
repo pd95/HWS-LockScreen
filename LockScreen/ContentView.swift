@@ -94,7 +94,9 @@ struct ContentView: View{
                     currentDate = input
                 }
             }
-        }.ignoresSafeArea()
+        }
+        .ignoresSafeArea()
+        .statusBar(hidden: true)
     }
 
     private func toggleFlashlight() {
