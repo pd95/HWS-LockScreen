@@ -5,6 +5,7 @@ Based on Paul Hudson [HWS+](https://www.hackingwithswift.com/plus/) "Remaking ap
 - Edge-to-edge background image (without status bar)
 - Date and time (using localized formatting, without AM/PM symbols)
 - Simulation of the lock screen buttons (including flashlight button inverting and giving a haptic feedback)
+- Use "torch" of your devices camera as flashlight 
 
 ## Screenshot
 

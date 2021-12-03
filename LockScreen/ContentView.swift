@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import AVFoundation
 
 extension DateFormatter {
     fileprivate static var hoursAndMinutes: DateFormatter = {
@@ -114,6 +115,23 @@ struct ContentView: View{
         let generator = UIImpactFeedbackGenerator()
         generator.impactOccurred()
         flashlightActive.toggle()
+
+        // Toggle the real 'torch' of a physical device
+        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
+        do {
+            try device.lockForConfiguration()
+            defer {
+                device.unlockForConfiguration()
+            }
+
+            if device.torchMode == .on {
+                device.torchMode = .off
+            } else {
+                try device.setTorchModeOn(level: 1.0)
+            }
+        } catch {
+            print("Unable to update torch: \(error)")
+        }
     }
 }
 
