@@ -117,17 +117,21 @@ struct ContentView: View{
         flashlightActive.toggle()
 
         // Toggle the real 'torch' of a physical device
-        guard let device = AVCaptureDevice.default(for: .video), device.hasTorch else { return }
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+        guard device.hasTorch else {
+            print("Torch not available")
+            return
+        }
         do {
             try device.lockForConfiguration()
             defer {
                 device.unlockForConfiguration()
             }
 
-            if device.torchMode == .on {
-                device.torchMode = .off
+            if flashlightActive {
+                try device.setTorchModeOn(level: AVCaptureDevice.maxAvailableTorchLevel)
             } else {
-                try device.setTorchModeOn(level: 1.0)
+                device.torchMode = .off
             }
         } catch {
             print("Unable to update torch: \(error)")
